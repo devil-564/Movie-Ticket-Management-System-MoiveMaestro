@@ -28,7 +28,7 @@ const IndividualMovie = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ movie_name})
+      body: JSON.stringify({ movie_name })
     })
 
     const data = await response.json();
@@ -64,11 +64,19 @@ const IndividualMovie = () => {
 
 
   function handleSeatClick(e) {
+    console.log(e)
     const selected_seat_div = document.getElementById(e);
 
     if (selected_seat_div.style.backgroundColor != 'red') {
       selected_seat_div.style.backgroundColor = 'red';
-      setTicketPrice(ticketPrice => ticketPrice + 10);
+      if (e <= 22)
+        setTicketPrice(ticketPrice => ticketPrice + 100);
+      else if (e > 22 && e <= 66)
+        setTicketPrice(ticketPrice => ticketPrice + 170);
+
+      else if (e > 67 && e <= 77)
+        setTicketPrice(ticketPrice => ticketPrice + 250);
+      
       // setSelectedSeatRecord(selectedSeatRecord.push(e)); //storing this for overall seat_location table
       setSelectedSeatRecord(prevSelectedSeatRecord => [...prevSelectedSeatRecord, e]);
       console.log(selectedSeatRecord)
@@ -229,7 +237,7 @@ const IndividualMovie = () => {
             <div id='seat-selection-container'>
               <div id='seat-container' style={{ display: loaderCheck == true ? "grid" : "none" }}>
               </div>
-              <Loader loaderCheck = {loaderCheck}/>
+              <Loader loaderCheck={loaderCheck} />
             </div>
           </div>
 
@@ -275,7 +283,7 @@ const IndividualMovie = () => {
             <div id='line'></div>
             <h1 id='heading2'>Billing Section</h1>
             <div id='ticket-purchase-area'>
-              <h1 id='heading3'>{ticketPrice}$<mark>Only</mark></h1>
+              <h1 id='heading3'>{ticketPrice} Rs<mark> Only </mark></h1>
               <motion.div
                 // whileHover={{
                 //   scale: 1.1,

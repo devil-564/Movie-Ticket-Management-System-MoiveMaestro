@@ -8,7 +8,6 @@ const ChoosingSection = () => {
   const navigate = useNavigate();
 
   const handleClick = ()=>{
-
     navigate('/signup')
   }
 

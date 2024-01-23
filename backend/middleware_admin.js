@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const JWT_SEC_KEY = "MOVIE_TICKET_MANAGEMENT_ADMIN_PANEL_112494";
 
-const middleware = async (req, res, next) => {
+const middleware_admin = async (req, res, next) => {
 
     const token = req.header('auth-token')
 

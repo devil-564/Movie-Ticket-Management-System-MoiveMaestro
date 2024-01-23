@@ -7,8 +7,10 @@ import EState from "./context/everything_context/estate";
 import Landing from './Component/Landing';
 import Ticket from './Component/Ticket';
 import IndividualMovie from './Component/IndividualMovie';
-import Navbar from './Component/Navbar';
 import LoaderMain from './Component/LoaderMain';
+import About from './Component/About';
+import Navbar from "./Component/Navbar"
+// import Hritik from './Component/Hritik';
 
 
 function App() {
@@ -16,15 +18,17 @@ function App() {
       <EState>
         <Router>
           <Routes>
+            <Route exact path="/" element={<Home/>}></Route>
             <Route exact path='/navbar' element = {<Navbar />}></Route>
-            <Route exact path="/" element={<Home />}></Route>
             <Route exact path='/choosingsection' element={<ChoosingSection />}></Route>
             <Route exact path='/signup' element={<Signup />}></Route>
             <Route exact path='/login' element={<Login />}></Route>
             <Route exact path='/ticket' element={<><Navbar /> <Ticket /></>}></Route>
             <Route exact path='/landing' element={<><Navbar /> <Landing /></>}></Route>
             <Route exact path='/individual' element={<><Navbar /><IndividualMovie /></>}></Route>
+            <Route exact path='/about' element={<><Navbar /><About /></>}></Route>
             <Route exact path='/loadermain' element={<LoaderMain />}></Route>
+            {/* <Route exact path='/hritik' element={<Hritik />}></Route> */}
           </Routes>
         </Router>
       </EState>

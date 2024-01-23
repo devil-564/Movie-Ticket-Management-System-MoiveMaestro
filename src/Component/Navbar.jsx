@@ -33,7 +33,7 @@ const Navbar = () => {
         <img src={Logo} alt="" srcset="" style={{width : "12vw", height : "4.5vw", filter : "brightness(1)", marginLeft : "0.25vw"}}/>
         <div>
           <h4 onClick={() => { handleClick('/landing') }} id='home'>Home</h4>
-          <h4 id='about'>About</h4>
+          <h4 id='about' onClick={() => {handleClick('/about')}}>About</h4>
           <h4 id='service'>Services</h4>
         </div>
         <div className='nav-icon'>

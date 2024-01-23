@@ -29,7 +29,7 @@ const Home = () => {
             <span class="fourth"></span>
           </button>
         </span>
-        <img src={image} alt="" id='image'/>
+        <img src= {image} alt="" id='image'/>
       </div>
     </>
   )
