@@ -10,6 +10,8 @@ import IndividualMovie from './Component/IndividualMovie';
 import LoaderMain from './Component/LoaderMain';
 import About from './Component/About';
 import Navbar from "./Component/Navbar"
+import AdminNavbar from './Component/AdminNavbar';
+import AdminHome from './Component/AdminHome';
 // import Hritik from './Component/Hritik';
 
 
@@ -28,7 +30,7 @@ function App() {
             <Route exact path='/individual' element={<><Navbar /><IndividualMovie /></>}></Route>
             <Route exact path='/about' element={<><Navbar /><About /></>}></Route>
             <Route exact path='/loadermain' element={<LoaderMain />}></Route>
-            {/* <Route exact path='/hritik' element={<Hritik />}></Route> */}
+            <Route exact path='/adminhome' element={<AdminHome />}></Route>
           </Routes>
         </Router>
       </EState>

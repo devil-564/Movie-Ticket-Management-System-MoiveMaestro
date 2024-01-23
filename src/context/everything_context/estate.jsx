@@ -12,6 +12,7 @@ const estate = (props) => {
   const [navIconBeeping, setNavIconBeeping] = useLocalStorage('beep', false);
   const [time, setTime] = useState(0)
   const [date, setDate] = useState(0)
+  const [pageSwapCount, setpageSwapCount] = useState(0)
 
   const [individualAvailableMovie, setIndividualAvailableMovie] = useState({
     title: "Spider-Man: No Way Home",
@@ -36,18 +37,18 @@ const estate = (props) => {
     ticket_price: "",
   })
 
-  const generateTicket = async(user_name , movie_name, movie_image, seat_location ,show_date, show_time, ticket_price)=>{
-    const response = await fetch(`${host}/api/movie/generateticket`,{
-      method : "POST",
-      headers : {
-          "Content-Type" : "application/json",
-          "auth-token" : localStorage.getItem('token')
+  const generateTicket = async (user_name, movie_name, movie_image, seat_location, show_date, show_time, ticket_price) => {
+    const response = await fetch(`${host}/api/movie/generateticket`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem('token')
       },
-      body : JSON.stringify({user_name , movie_name, movie_image, seat_location, show_date, show_time, ticket_price})
-  })
+      body: JSON.stringify({ user_name, movie_name, movie_image, seat_location, show_date, show_time, ticket_price })
+    })
 
-  const res_json = await response.json()
-  // console.log(res_json)
+    const res_json = await response.json()
+    // console.log(res_json)
 
   }
 
@@ -56,30 +57,30 @@ const estate = (props) => {
   // User Details
 
   const [userDetails, setUserDetails] = useState({
-    user_name : "",
-    user_email : ""
+    user_name: "",
+    user_email: ""
   })
 
   const getuserDetails = async () => {
     const response = await fetch(`${host}/api/auth/getuserdetails`, {
-      method : "GET",
-      headers : {
-        'Content_Type' : 'application/json',
-        'auth-token' : localStorage.getItem('token')
+      method: "GET",
+      headers: {
+        'Content_Type': 'application/json',
+        'auth-token': localStorage.getItem('token')
       }
     })
 
     const data = await response.json();
-    setUserDetails({user_name : data.name, user_email : data.email})
+    setUserDetails({ user_name: data.name, user_email: data.email })
   }
 
   // User Tickets
   const getuserTickets = async () => {
     const response = await fetch(`${host}/api/movie/getusertickets`, {
-      method : "GET",
-      headers : {
-        'Content-Type' : 'application/json',
-        'auth-token' : localStorage.getItem('token')
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': localStorage.getItem('token')
       }
     })
 
@@ -93,27 +94,27 @@ const estate = (props) => {
 
   const allotPurchasedSeats = async (movie_name, seat_location) => {
     const response = await fetch(`${host}/api/seat/allotpurchasedseat`, {
-      method : "POST",
-      headers : {
-        'Content-Type' : "application/json",
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json",
       },
-      body : JSON.stringify({movie_name, seat_location})
+      body: JSON.stringify({ movie_name, seat_location })
     })
 
     const data = await response.json();
 
-    if(data.success){
+    if (data.success) {
       setseat_l(data.data.seat_location)
     }
   }
-  
+
   const getallotPurchasedSeats = async (movie_name) => {
     const response = await fetch(`${host}/api/seat/getallotedseat`, {
-      method : "POST",
-      headers : {
-        'Content-Type' : 'application/json'
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
       },
-      body : JSON.stringify({movie_name})
+      body: JSON.stringify({ movie_name })
     })
 
     const data = await response.json();
@@ -126,34 +127,37 @@ const estate = (props) => {
   }
 
   return (
-    <eContext.Provider value={{ availableMovie, 
-    setavailableMovie, 
-    index, 
-    setIndex, 
-    individualAvailableMovie,
-    setIndividualAvailableMovie, 
-    ticketPrice, 
-    setTicketPrice, 
-    selectedSeatRecord, 
-    setSelectedSeatRecord, 
-    ticketDetails, 
-    setTicketDetails, 
-    generateTicket, 
-    userDetails, 
-    setUserDetails, 
-    getuserDetails, 
-    setuserTickets, 
-    userTickets, 
-    getuserTickets, 
-    navIconBeeping, 
-    setNavIconBeeping, 
-    time, 
-    setTime, 
-    date, 
-    setDate, 
-    allotPurchasedSeats, 
-    getallotPurchasedSeats, 
-    seat_l
+    <eContext.Provider value={{
+      availableMovie,
+      setavailableMovie,
+      index,
+      setIndex,
+      individualAvailableMovie,
+      setIndividualAvailableMovie,
+      ticketPrice,
+      setTicketPrice,
+      selectedSeatRecord,
+      setSelectedSeatRecord,
+      ticketDetails,
+      setTicketDetails,
+      generateTicket,
+      userDetails,
+      setUserDetails,
+      getuserDetails,
+      setuserTickets,
+      userTickets,
+      getuserTickets,
+      navIconBeeping,
+      setNavIconBeeping,
+      time,
+      setTime,
+      date,
+      setDate,
+      allotPurchasedSeats,
+      getallotPurchasedSeats,
+      seat_l,
+      pageSwapCount,
+      setpageSwapCount
     }}>
       {props.children}
     </eContext.Provider>
