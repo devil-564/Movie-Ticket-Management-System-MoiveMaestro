@@ -79,8 +79,8 @@ router.post('/loginadmin', [
 
 
         var data = {
-            isCustomer: {
-                id: isCustomer.id
+            isAdmin: {
+                id: isAdmin.id
             }
         }
         console.log(data);
@@ -100,9 +100,9 @@ router.post('/loginadmin', [
 
 
 // Route 3 
-router.get('/getuserdetails', middleware, async (req, res) => {
+router.get('/getadmindetails', middleware, async (req, res) => {
     try {
-        const isAdmin = await Admin.findOne({ _id: req.ticket.id })
+        const isAdmin = await Admin.findOne({ _id: req.admin.id })
         return res.status(200).json(isAdmin)
     } catch (error) {
         console.log(error);

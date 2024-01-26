@@ -8,8 +8,9 @@ const availableMovie = require('../models/availableMovie');
 const ticket = require('../models/ticket')
 const middleware = require('../middleware');
 const Ticket = require("../models/ticket");
+const Seat = require("../models/seat")
 
-router.get('/getavailablemovies', async (req, res) => {
+router.get('/getavailablemovies', async (_, res) => {
     const data = await availableMovie.find({});
     res.json(data);
 })
@@ -63,7 +64,7 @@ router.get('/getusertickets', middleware, async (req, res) => {
         var success = false
         const userTicket = await Ticket.find({ user_id: req.ticket.id })
 
-        if(userTicket)
+        if (userTicket)
             success = true;
 
         res.json(userTicket)
@@ -75,4 +76,39 @@ router.get('/getusertickets', middleware, async (req, res) => {
 
 })
 
+// Add Movie - Admin Side Routes
+
+router.post('/deletemovie', [
+    body("title", "Enter Movie Name"),
+], async (req, res) => {
+    try {
+
+        let success = false;
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ success: success, errors: errors.array() })
+        }
+        console.log(req.body.title)
+        const deleteMovie = await availableMovie.deleteMany({title : req.body.title})
+        console.log(deleteMovie)
+
+        if(!deleteMovie){
+            return res.status(200).json({success : success, results : "No movie found with this name"})
+        }
+
+        else{
+            success = true
+            await Seat.deleteOne({title : req.body.title})
+            return res.status(200).json({success : success, results : "Movie has been deleted"})
+        }
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("Internal error occured")
+    }
+})
+
+router.post('/addmovie', [
+    
+])
 module.exports = router; 

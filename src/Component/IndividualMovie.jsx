@@ -128,7 +128,7 @@ const IndividualMovie = () => {
           seatDiv.classList.add('seat-div');
           seatDiv.id = seat_no
           seatContainer.appendChild(seatDiv);
-          // console.log(seat_l_array) // Giving blank errora
+          // console.log(seat_l_array) // Giving blank error
           let helper = seat_l_array.includes(seat_no)
 
           if (helper) {

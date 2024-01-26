@@ -1,4 +1,4 @@
-nav{
+#admin_navbar{
     width: 20%;
     height: 100vh;
     display: flex;
@@ -6,7 +6,7 @@ nav{
     background-color: black;
 }
 
-nav img{
+#admin_navbar img{
     width: 20vw;
     height: 8vw;
     background-color: white;
@@ -33,4 +33,10 @@ svg:hover{
 
 #door_out{
     margin-bottom: 1vw;
+}
+
+.round_border{
+    border: 1px solid white;
+    border-radius: 100%;
+    padding: 5px;
 }

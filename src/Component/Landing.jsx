@@ -24,12 +24,12 @@ const Landing = () => {
   }
 
   const nextHandleClick = () => {
-    if (index == 0) {
+    if (index == 0 && availableMovie.length > 1) {
       setIndividualAvailableMovie(availableMovie[1])
       setIndex(1);
     }
 
-    else if (index == 1) {
+    else if (index == 1 && availableMovie.length > 2) {
       setIndividualAvailableMovie(availableMovie[2])
       setIndex(2)
     }

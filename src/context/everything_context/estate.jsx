@@ -14,6 +14,11 @@ const estate = (props) => {
   const [date, setDate] = useState(0)
   const [pageSwapCount, setpageSwapCount] = useState(0)
 
+  const [userDetails, setUserDetails] = useState({
+    user_name: "",
+    user_email: ""
+  })
+
   const [individualAvailableMovie, setIndividualAvailableMovie] = useState({
     title: "Spider-Man: No Way Home",
     description: "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.",
@@ -21,6 +26,8 @@ const estate = (props) => {
     genre: ["Action", "Adventure", "Fantasy"],
     image: ["https://wallpaperaccess.com/full/7826169.jpg", "https://wallpaperaccess.com/full/6790602.png"]
   })
+
+const [adminName, setadminName] = useState("")
 
   // const [allotedSeatsLocation, setallotedSeatsLocation] = useState({
   //   seat_location : []
@@ -55,12 +62,6 @@ const estate = (props) => {
   // ----
 
   // User Details
-
-  const [userDetails, setUserDetails] = useState({
-    user_name: "",
-    user_email: ""
-  })
-
   const getuserDetails = async () => {
     const response = await fetch(`${host}/api/auth/getuserdetails`, {
       method: "GET",
@@ -126,6 +127,35 @@ const estate = (props) => {
     console.log(seat_l);
   }
 
+  // Admin Side Work
+
+  const getAdminDetails = async () => {
+    const response = await fetch(`${host}/api/admin/getadmindetails`, {
+      method: "GET",
+      headers: {
+        'Content_Type': 'application/json',
+        'auth-token': localStorage.getItem('token')
+      }
+    })
+
+    const data = await response.json();
+    setadminName(data.name)
+  }
+
+  const deleteMovie = async (title) => {
+    const response = await fetch(`${host}/api/movie/deletemovie`, {
+      method : "POST",
+      headers : {
+        'Content-Type' : "application/json"
+      },
+      body : JSON.stringify({title})
+    })
+
+    console.log("Estate - " + title)
+    const data = await response.json();
+    return data.success;
+  }
+
   return (
     <eContext.Provider value={{
       availableMovie,
@@ -157,7 +187,10 @@ const estate = (props) => {
       getallotPurchasedSeats,
       seat_l,
       pageSwapCount,
-      setpageSwapCount
+      setpageSwapCount,
+      adminName,
+      getAdminDetails,
+      deleteMovie
     }}>
       {props.children}
     </eContext.Provider>

@@ -1,10 +1,12 @@
 import React from 'react'
 import PageTransition1 from './PageTransition1'
+import "../Css/AdminAddMovie.css"
 
 const AdminAddMovie = () => {
   return (
     <PageTransition1>
-      <div style={{ width: "100%", height: "100vh", backgroundColor: "blue", overflow : "hidden"}}>
+      <div id='admin_add_movie_container'>
+        <form action="" method="post"></form>
       </div>
     </PageTransition1>
   )

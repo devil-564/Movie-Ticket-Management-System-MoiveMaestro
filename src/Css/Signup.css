@@ -16,7 +16,7 @@
     overflow: hidden;
 }
 
-form {
+#signup-container form {
     background-color: white;
     border: 1px solid;
     display: flex;
