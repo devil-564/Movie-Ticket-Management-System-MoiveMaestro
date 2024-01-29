@@ -10,7 +10,7 @@ app.use(express.json());
 const port = 3000;
 
 app.get('/', (_, res)=>{
-    res.send("Helloooo Irfan");
+    res.send("Helloooo Irfan"); 
 })
 
 // Available Routes
@@ -21,5 +21,5 @@ app.use('/api/admin', require("./routes/adminAuth"))
 
 
 app.listen(port, () => {
-    console.log(`EverYthing.io backend listening at http://localhost:${port}`)
+    console.log(`EverYthing.io backend listening at http://localhost:${port}`) 
 })

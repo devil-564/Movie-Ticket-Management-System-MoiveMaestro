@@ -35,7 +35,7 @@ form h1 {
     font-family: 'Advent Pro', sans-serif;
 }
 
-form input {
+form input, textarea {
     width: 25vw;
     height: 3vw;
     text-align: center;

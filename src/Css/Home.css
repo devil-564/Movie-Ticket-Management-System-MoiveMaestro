@@ -55,11 +55,11 @@ button {
     padding: 20px 40px;
     font-size: 44px;
     position: relative;
-    background: transparent;
-    color: #ffa500;
+    background: white;
+    color: black;
     text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.7s;
+    transition: all 0.5s;
     overflow: hidden;
     border-radius: 100px;
     width: 30vw;
@@ -68,6 +68,7 @@ button {
   }
 
   button:hover {
+    background: transparent;
     color: #000;
   }
   .first,.second,.third,.fourth {

@@ -20,7 +20,7 @@ const AdminNavbar = () => {
     }
 
     const handleClicknav = (e)=> {
-        alert("Please make sure you are logged in with your account")
+        // alert("Please make sure you are logged in with your account")
         navigate(e)
     }
 

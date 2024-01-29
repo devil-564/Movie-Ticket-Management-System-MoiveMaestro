@@ -89,17 +89,17 @@ router.post('/deletemovie', [
             return res.status(400).json({ success: success, errors: errors.array() })
         }
         console.log(req.body.title)
-        const deleteMovie = await availableMovie.deleteMany({title : req.body.title})
+        const deleteMovie = await availableMovie.deleteMany({ title: req.body.title })
         console.log(deleteMovie)
 
-        if(!deleteMovie){
-            return res.status(200).json({success : success, results : "No movie found with this name"})
+        if (!deleteMovie) {
+            return res.status(200).json({ success: success, results: "No movie found with this name" })
         }
 
-        else{
+        else {
             success = true
-            await Seat.deleteOne({title : req.body.title})
-            return res.status(200).json({success : success, results : "Movie has been deleted"})
+            await Seat.deleteOne({ title: req.body.title })
+            return res.status(200).json({ success: success, results: "Movie has been deleted" })
         }
 
     } catch (error) {
@@ -108,7 +108,53 @@ router.post('/deletemovie', [
     }
 })
 
+// router.post('/api/movies', upload.array('images', 2), async (req, res) => {
+//     const { name } = req.body;
+//     const images = req.files.map(file => file.filename);
+
+//     const newMovie = new Movie({ name, images });
+
+//     try {
+//       await newMovie.save();
+//       res.json({ success: true, message: 'Movie added successfully' });
+//     } catch (error) {
+//       res.status(500).json({ success: false, message: 'Internal server error' });
+//     }
+//   });
+
 router.post('/addmovie', [
-    
-])
+    body("title", "Enter movie title"),
+    body("description", "Enter movie description"),
+    body("rating", "Enter movie rating")
+], async (req, res) => {
+    try {
+        let success = false;
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ success: success, errors: errors.array() })
+        }
+
+        const { title, description, rating, genre, image } = req.body;
+
+        const verifyMovie = await availableMovie.findOne({ title: title })
+
+        if (verifyMovie) {
+            return res.status(200).json({ success: success, error: "Already Movie Found" })
+        }
+
+        const addMovie = await availableMovie.create({
+            title: title,
+            description: description,
+            rating: rating,
+            genre: genre,
+            image: image
+        })
+
+        success = true;
+        return res.status(200).json({ success: success, data: addMovie })
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("Internal error occured")
+    }
+})
 module.exports = router; 

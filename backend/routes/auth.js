@@ -17,16 +17,16 @@ router.post('/createcustomer', [
     body('password', 'Enter a valid password').isLength({ min: 6 }),
 
 ], async (req, res) => {
-    let success = false;
+    let success = false; 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ success: success, errors: errors.array() })
+        return res.status(200).json({ success: success, errors: errors.array() })
     }
 
     try {
         let isCustomer = await Customer.findOne({ email: req.body.email });
         if (isCustomer) {
-            res.status(400).json("Already a customer exist")
+            res.status(200).json("Already a customer exist")
         }
 
         var salt = await bcrypt.genSaltSync(10);
