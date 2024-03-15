@@ -8,6 +8,7 @@ const estate = (props) => {
   const [index, setIndex] = useState(0)
   const [ticketPrice, setTicketPrice] = useState(0)
   const [selectedSeatRecord, setSelectedSeatRecord] = useState([])
+  const [selSeatRecordLocalStorage, setSelSeatRecordLocalStorage] = useLocalStorage('selSeatRecordLS', [])
   const [userTickets, setuserTickets] = useState([])
   const [navIconBeeping, setNavIconBeeping] = useLocalStorage('beep', false);
   const [time, setTime] = useState(0)
@@ -35,7 +36,7 @@ const [adminName, setadminName] = useState("")
   const [seat_l, setseat_l] = useState([])
 
   // Ticket Details 
-  const [ticketDetails, setTicketDetails] = useState({
+  const [ticketDetails, setTicketDetails] = useLocalStorage('ticketDetails',{
     user_name: "",
     movie_name: "",
     movie_image: "",
@@ -190,7 +191,9 @@ const [adminName, setadminName] = useState("")
       setpageSwapCount,
       adminName,
       getAdminDetails,
-      deleteMovie
+      deleteMovie,
+      selSeatRecordLocalStorage,
+      setSelSeatRecordLocalStorage
     }}>
       {props.children}
     </eContext.Provider>

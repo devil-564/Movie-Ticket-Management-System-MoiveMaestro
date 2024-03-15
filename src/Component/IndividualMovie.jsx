@@ -11,7 +11,7 @@ const IndividualMovie = () => {
   const navigate = useNavigate()
 
   const context = useContext(EContext)
-  const { individualAvailableMovie, ticketPrice, setTicketPrice, selectedSeatRecord, setSelectedSeatRecord, setTicketDetails, generateTicket, userDetails, getuserDetails, setNavIconBeeping, allotPurchasedSeats } = context;
+  const { individualAvailableMovie, ticketPrice, setTicketPrice, selectedSeatRecord, setSelectedSeatRecord, setTicketDetails, ticketDetails, generateTicket, userDetails, getuserDetails, setNavIconBeeping, allotPurchasedSeats, setSelSeatRecordLocalStorage } = context;
 
   let count = 0;
   let ascii_value = 65;
@@ -76,7 +76,7 @@ const IndividualMovie = () => {
 
       else if (e > 67 && e <= 77)
         setTicketPrice(ticketPrice => ticketPrice + 250);
-      
+
       // setSelectedSeatRecord(selectedSeatRecord.push(e)); //storing this for overall seat_location table
       setSelectedSeatRecord(prevSelectedSeatRecord => [...prevSelectedSeatRecord, e]);
       console.log(selectedSeatRecord)
@@ -183,12 +183,42 @@ const IndividualMovie = () => {
   const beforehandleTicketBooking = () => {
     setTimeout(() => {
       handleTicketBooking()
-    }, 2500);
+    }, 500);
+  }
+
+  const checkout = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/stripe/charge", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          "auth-token": localStorage.getItem('token')
+        },
+        mode: "cors",
+        body: JSON.stringify({
+          items: [
+            {
+              id: 1,
+              quantity: 1,
+              price: parseFloat(ticketDetails.ticket_price),
+              name: ticketDetails.movie_name
+            },
+          ],
+        })
+      })
+      const data = await res.json()
+      console.log(data);
+      window.location = data.url
+    } catch (error) {
+      console.table(error)
+    }
+
+    // props.setstripeConfirm(data.success)
   }
 
 
-  const handleTicketBooking = () => {
-
+  const handleTicketBooking = async () => {
+    
     const newTicketDetails = {
       user_name: userDetails.user_name,
       movie_name: individualAvailableMovie.title,
@@ -199,26 +229,38 @@ const IndividualMovie = () => {
     };
 
     setTicketDetails(newTicketDetails);
+    setSelSeatRecordLocalStorage(selectedSeatRecord);
 
-    console.log(
-      selectedSeatRecord
-    );
+    setTimeout(() => {
+        checkout()
+    }, 100);
 
-    allotPurchasedSeats(newTicketDetails.movie_name, selectedSeatRecord, newTicketDetails.show_date, newTicketDetails.show_time)
+    // if (data.success) {
 
-    generateTicket(
-      newTicketDetails.user_name,
-      newTicketDetails.movie_name,
-      newTicketDetails.movie_image,
-      selectedSeatRecord,
-      newTicketDetails.show_date,
-      newTicketDetails.show_time,
-      newTicketDetails.ticket_price
-    );
+    //   console.log(
+    //     selectedSeatRecord
+    //   );
 
-    setNavIconBeeping(true);
-    navigate('/landing')
-  };
+    //   allotPurchasedSeats(newTicketDetails.movie_name, selectedSeatRecord, newTicketDetails.show_date, newTicketDetails.show_time)
+
+    //   generateTicket(
+    //     newTicketDetails.user_name,
+    //     newTicketDetails.movie_name,
+    //     newTicketDetails.movie_image,
+    //     selectedSeatRecord,
+    //     newTicketDetails.show_date,
+    //     newTicketDetails.show_time,
+    //     newTicketDetails.ticket_price
+    //   );
+
+    //   setNavIconBeeping(true);
+    //   navigate('/landing')
+    // }
+
+    // else {
+    //   console.log("Payment not done successfully")
+    // }
+  }
 
 
 
@@ -285,14 +327,6 @@ const IndividualMovie = () => {
             <div id='ticket-purchase-area'>
               <h1 id='heading3'>{ticketPrice} Rs<mark> Only </mark></h1>
               <motion.div
-                // whileHover={{
-                //   scale: 1.1,
-                //   backgroundColor: "#FFFF0",
-                //   color: "black",
-                // }}
-                // transition={{
-                //   duration: 0.2
-                // }}
                 id='book-ticket-btn' onClick={beforehandleTicketBooking}>Book Ticket</motion.div>
             </div>
           </div>

@@ -13,7 +13,8 @@ import Navbar from "./Component/Navbar"
 import AdminHome from './Component/AdminHome';
 import AdminSignup from './Component/AdminSignup';
 import AdminLogin from './Component/AdminLogin';
-// import Hritik from './Component/Hritik';
+import Success from './Component/Success';
+
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
             <Route exact path='/adminsignup' element={<AdminSignup />}></Route>
             <Route exact path='/adminlogin' element={<AdminLogin />}></Route>
             <Route exact path='/adminhome' element={<AdminHome />}></Route>
+            <Route exact path='/success' element={<Success />}></Route>
           </Routes>
         </Router>
       </EState>
