@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const Success = () => {
   const context = useContext(EContext);
   const navigate = useNavigate();
-  const {ticketDetails, generateTicket, selSeatRecordLocalStorage, setNavIconBeeping} = context;
+  const {ticketDetails, generateTicket, selSeatRecordLocalStorage, setNavIconBeeping,allotPurchasedSeats } = context;
   const [timer, settimer] = useState(5)
 
   useEffect(() => {
@@ -21,6 +21,11 @@ const Success = () => {
       )
     }
 
+    const allotPurchasedSeatsFunc = ()=>{
+      allotPurchasedSeats(ticketDetails.movie_name, selSeatRecordLocalStorage);
+    }
+
+    allotPurchasedSeatsFunc();
     genTicket();
     setNavIconBeeping(true);
 

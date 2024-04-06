@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import '../Css/Signup.css'
 import { useNavigate } from 'react-router-dom'
+import PageTransition from './PageTransition'
+import BackButton from './BackButton'
+
 const Signup = () => {
   const navigate = useNavigate();
   const [creds, setCreds] = useState({ name: "", email: "", password: "" })
@@ -42,22 +45,25 @@ const Signup = () => {
   }
   return (
     <>
-      <div id='signup-container'>
-        <form onSubmit={handleSubmit}>
-          <h1>Signup Form</h1>
-          <input type="text" placeholder='Enter your name' name='name' onChange={handleChange} value={creds.name} />
-          <input type="email" name="email" id="" placeholder='Enter your Email-id' onChange={handleChange} value={creds.email} />
-          <input type="password" name="password" id="" placeholder='Enter your password' onChange={handleChange} value={creds.password} />
-          {/* <p onSubmit={handleSubmit}>Submit</p> */}
-          
+      <PageTransition>
+        <div id='signup-container' style={{position : "relative"}}>
+          <BackButton />
+          <form onSubmit={handleSubmit}>
+            <h1>Signup Form</h1>
+            <input type="text" placeholder='Enter your name' name='name' onChange={handleChange} value={creds.name} />
+            <input type="email" name="email" id="" placeholder='Enter your Email-id' onChange={handleChange} value={creds.email} />
+            <input type="password" name="password" id="" placeholder='Enter your password' onChange={handleChange} value={creds.password} />
+            {/* <p onSubmit={handleSubmit}>Submit</p> */}
 
-          <input type="submit" value="Submit" id='btn' />
-          <p id='signup-link' onClick={()=>{handleClick('/login')}}>! Already Signed Up Want To Sign-In !</p>
-        </form>
 
-        <div id="back-shape1"></div>
-        <div id="back-shape2"></div>
-      </div>
+            <input type="submit" value="Submit" id='btn' />
+            <p id='signup-link' onClick={() => { handleClick('/login') }}>! Already Signed Up Want To Sign-In !</p>
+          </form>
+
+          <div id="back-shape1"></div>
+          <div id="back-shape2"></div>
+        </div>
+      </PageTransition>
     </>
   )
 }

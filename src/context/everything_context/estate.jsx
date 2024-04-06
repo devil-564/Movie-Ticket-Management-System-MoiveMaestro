@@ -56,8 +56,7 @@ const [adminName, setadminName] = useState("")
     })
 
     const res_json = await response.json()
-    // console.log(res_json)
-
+    console.log(res_json)
   }
 
   // ----

@@ -17,7 +17,7 @@ app.get('/', (_, res)=>{
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/movie', require('./routes/movie'));
 app.use('/api/seat', require('./routes/seat'))
-app.use('/api/admin', require("./routes/adminAuth"))
+app.use('/api/admin', require("./routes/adminAuth"))  
 app.use('/api/stripe', require("./routes/stripe"))
 
 

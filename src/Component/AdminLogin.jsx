@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import "../Css/AdminLogin.css"
 import PageTransition from './PageTransition'
+import BackButton from './BackButton'
 
 const AdminLogin = () => {
     const navigate = useNavigate()
@@ -46,6 +47,7 @@ const AdminLogin = () => {
     return (
         <PageTransition>
             <div className="login-container">
+                <BackButton />
                 <h2 id='login_container_head_name'>MOVIE MAESTRO</h2>
 
                 <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="" id='login-container-image' />

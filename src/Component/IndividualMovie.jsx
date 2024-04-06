@@ -61,6 +61,19 @@ const IndividualMovie = () => {
   }, [individualAvailableMovie.title])
 
 
+  useEffect(() => {
+    const newTicketDetails = {
+      user_name: userDetails.user_name,
+      movie_name: individualAvailableMovie.title,
+      movie_image: individualAvailableMovie.image[0],
+      show_date: showDate, // Update dynamically based on user selection
+      show_time: showTime, // Update dynamically based on user selection
+      ticket_price: ticketPrice,
+    };
+
+    setTicketDetails(newTicketDetails);
+    setSelSeatRecordLocalStorage(selectedSeatRecord);
+  }, [ticketPrice, showDate, showTime])
 
 
   function handleSeatClick(e) {
@@ -219,21 +232,21 @@ const IndividualMovie = () => {
 
   const handleTicketBooking = async () => {
     
-    const newTicketDetails = {
-      user_name: userDetails.user_name,
-      movie_name: individualAvailableMovie.title,
-      movie_image: individualAvailableMovie.image[0],
-      show_date: showDate, // Update dynamically based on user selection
-      show_time: showTime, // Update dynamically based on user selection
-      ticket_price: ticketPrice,
-    };
+    // const newTicketDetails = {
+    //   user_name: userDetails.user_name,
+    //   movie_name: individualAvailableMovie.title,
+    //   movie_image: individualAvailableMovie.image[0],
+    //   show_date: showDate, // Update dynamically based on user selection
+    //   show_time: showTime, // Update dynamically based on user selection
+    //   ticket_price: ticketPrice,
+    // };
 
-    setTicketDetails(newTicketDetails);
-    setSelSeatRecordLocalStorage(selectedSeatRecord);
+    // setTicketDetails(newTicketDetails);
+    // setSelSeatRecordLocalStorage(selectedSeatRecord);
 
     setTimeout(() => {
         checkout()
-    }, 100);
+    }, 1000);
 
     // if (data.success) {
 

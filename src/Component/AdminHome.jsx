@@ -5,6 +5,8 @@ import AdminAddMovie from './AdminAddMovie'
 import PageTransition1 from './PageTransition1'
 import "../Css/AdminHome.css"
 import { useNavigate } from 'react-router-dom'
+import BackButton from './BackButton'
+
 
 const AdminHome = () => {
   const navigate = useNavigate()

@@ -14,6 +14,7 @@ import AdminHome from './Component/AdminHome';
 import AdminSignup from './Component/AdminSignup';
 import AdminLogin from './Component/AdminLogin';
 import Success from './Component/Success';
+import Cancel from './Component/Cancel';
 
 
 
@@ -36,6 +37,7 @@ function App() {
             <Route exact path='/adminlogin' element={<AdminLogin />}></Route>
             <Route exact path='/adminhome' element={<AdminHome />}></Route>
             <Route exact path='/success' element={<Success />}></Route>
+            <Route exact path='/cancel' element={<Cancel />}></Route>
           </Routes>
         </Router>
       </EState>

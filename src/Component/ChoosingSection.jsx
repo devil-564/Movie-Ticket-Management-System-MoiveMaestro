@@ -3,6 +3,7 @@ import "../Css/ChoosingSection.css"
 import Theatre from "../assets/theatre-admin.jpg";
 import Customer from "../assets/customer.jpg";
 import { useNavigate } from 'react-router-dom';
+import BackButton from './BackButton';
 
 const ChoosingSection = () => {
   const navigate = useNavigate();
@@ -13,7 +14,8 @@ const ChoosingSection = () => {
 
   return (
     <>
-      <div id='main-container'>
+      <div id='main-container' style={{position : 'relative'}}>
+        <BackButton />
         <div id='sub-container'>
             <div id='sub-sub-container'>
                 <img src={Theatre} alt="admin" srcset="" onClick={() => {handleClick("/adminsignup")}}/>
