@@ -41,7 +41,7 @@ form input, textarea {
     text-align: center;
     border-radius: 1vw;
     border: 1px solid black;
-    font-size: 1.5vw;
+    font-size: 1.5rem;
     font-family: 'Rajdhani', sans-serif;
     font-weight: 900;
 }
@@ -139,4 +139,36 @@ form input, textarea {
         left: -8vw;
         background-color: #0047AB;
     }
+}
+
+@media (max-width : 1114px) {
+
+    #signup-container form{
+        width: 70vw;
+        height: 50vh;
+        font-size: 5vw;
+    }
+
+    #signup-container form input{
+        font-size: 1rem;
+        width: 50vw;
+        height: 4vh;
+    }
+
+    #signup-container form #btn{
+        width: 25vw;
+    }
+
+    #signup-container form p{
+        font-size: 0.7rem;
+    }
+
+    #signup-container #back-shape1{
+        top: 40%;
+    }
+
+    #signup-container #back-shape2{
+        top: 60%;
+    }
+
 }

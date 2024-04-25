@@ -21,6 +21,8 @@ const Landing = () => {
     const data = await response.json();
     console.log(data)
     setavailableMovie(data)
+    setIndividualAvailableMovie(availableMovie[0])
+    setIndex(0);
   }
 
   const nextHandleClick = () => {

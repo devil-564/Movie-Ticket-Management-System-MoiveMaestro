@@ -134,3 +134,38 @@ button {
     top: 0;
     left: 0;
   }
+
+
+  @media (max-width: 1114px) {
+    div>img{
+      object-fit: cover;
+    }
+
+    #upper-container{
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      left: 0;
+      top: 0;
+    }
+
+    div>span>h1{
+      height: 20vw;
+      font-size: 8vw;
+    }
+
+    div>span>p{
+      font-size: 4vw;
+      height: 10vw;
+      margin-top: 1vw;
+    }
+
+    button{
+      margin-top: 1vw;
+      width: 65vw;
+      height: 15vw;
+      font-size: 5vw;
+    }
+
+  }

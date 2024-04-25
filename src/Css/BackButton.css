@@ -43,3 +43,20 @@
     content: "Home";
     color: gold;
 } */
+
+@media (max-width : 468px) {
+
+    #backArrowCont{
+        width: 20vw;
+        height : 15vw
+    }
+
+    #backArrow{
+        width: 3vw;
+        height: 3vw;
+    }
+
+    #backArrowCont::after{
+        font-size: 6vw;
+    }
+}

@@ -109,7 +109,7 @@ form p:hover{
     animation: back-shape-animation1 infinite 5s ease-in-out forwards;
 }
 
-@keyframes back-shape-animation1 {
+/* @keyframes back-shape-animation1 {
     0% {
         transform: translateX(0vw);
         background-color: #0073cf;
@@ -147,7 +147,7 @@ form p:hover{
         left: -8vw;
         background-color: #0047AB;
     }
-}
+} */
 
 #signup-link{
     font-family: 'Rajdhani', sans-serif;

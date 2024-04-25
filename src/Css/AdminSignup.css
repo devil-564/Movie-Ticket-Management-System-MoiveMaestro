@@ -67,3 +67,10 @@
     font-family: "Rajdhani", sans-serif;
     cursor: pointer;
 }
+
+@media (max-width : 468px) {
+    #loginForm{
+        width: 70%;
+    }
+
+}

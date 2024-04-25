@@ -63,3 +63,25 @@ img {
 #sub-container>div:hover img {
     filter: brightness(0.8);
 }
+
+@media (max-width : 480px) {
+    img{
+        object-fit: cover;
+        
+    }
+
+    #sub-container{
+        width: 95%;
+    }
+
+    #sub-container>div{
+        width: 100%;
+        height: 60%;
+    }
+
+    #sub-container>div>h1{
+        font-size: 11.5vw;
+        top: 40vw;
+        letter-spacing: 10evw;
+    }
+}
