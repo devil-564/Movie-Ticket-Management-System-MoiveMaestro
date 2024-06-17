@@ -15,7 +15,7 @@ const Cancel = () => {
   },[count])
 
   return (
-    <h1 style={{width : "100%", height : "100vh", display : 'flex', justifyContent : "center", alignItems : "center", fontFamily : "Rajdhani sans-serif"}}>
+    <h1 style={{width : "100%", height : "100vh", display : 'flex', justifyContent : "center", alignItems : "center", fontFamily : "Bebas Neue sans-serif"}}>
         Payment is unfortunately canceled
         You will be redirected to the landing page after {count}
     </h1>

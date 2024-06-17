@@ -73,4 +73,6 @@ router.post('/getallotedseat', [
 })
 
 
+
+
 module.exports = router

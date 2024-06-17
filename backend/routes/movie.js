@@ -157,4 +157,41 @@ router.post('/addmovie', [
         res.status(500).send("Internal error occured")
     }
 })
+
+router.post('/deleteticket', [
+    body("ticketId", "Enter Ticket Id").notEmpty(),
+    body("movie_name", "Enter Movie Name").notEmpty()
+], async (req, res) => {
+    let success = false;
+    const errors = validationResult(req.body);
+    console.log(req.body)
+
+    if (!errors.isEmpty()) {
+        res.status(400).json({ error: errors, success: success });
+    }
+
+    try {
+        const res = await ticket.deleteOne({ _id: req.body.id });
+
+        if (res) {
+            let getSeats = await Seat.findOne({ movie_name: req.body.movie_name });
+            let deleteSeat = req.body.seat_location;
+            let deleteSeatSet = new Set(deleteSeat);
+
+            let seatArray = getSeats.seat_location;
+
+            seatArray = seatArray.filter((e) => {
+                return !deleteSeatSet.has(e);
+            })
+
+            getSeats = await Seat.findOneAndUpdate({ movie_name: req.body.movie_name, seat_location: seatArray });
+
+            if (getSeats)
+                res.status(200).json({ success: true })
+        }
+    } catch (error) {
+        res.status(500).json({ error: error, success: false })
+    }
+})
+
 module.exports = router; 
