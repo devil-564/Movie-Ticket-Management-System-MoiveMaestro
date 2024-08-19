@@ -22,7 +22,7 @@ const Success = () => {
     }
 
     const allotPurchasedSeatsFunc = ()=>{
-      allotPurchasedSeats(ticketDetails.movie_name, selSeatRecordLocalStorage);
+      allotPurchasedSeats(ticketDetails.movie_name, selSeatRecordLocalStorage, ticketDetails.show_date, ticketDetails.show_time);
     }
 
     allotPurchasedSeatsFunc();

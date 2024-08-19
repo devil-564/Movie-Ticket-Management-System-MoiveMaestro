@@ -93,13 +93,13 @@ const [adminName, setadminName] = useState("")
 
   // Seat Details
 
-  const allotPurchasedSeats = async (movie_name, seat_location) => {
+  const allotPurchasedSeats = async (movie_name, seat_location, show_date, show_time) => {
     const response = await fetch(`${host}/api/seat/allotpurchasedseat`, {
       method: "POST",
       headers: {
         'Content-Type': "application/json",
       },
-      body: JSON.stringify({ movie_name, seat_location })
+      body: JSON.stringify({ movie_name, seat_location, show_date, show_time})
     })
 
     const data = await response.json();

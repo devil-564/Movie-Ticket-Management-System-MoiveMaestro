@@ -21,23 +21,23 @@ const Landing = () => {
     const data = await response.json();
     console.log(data)
     setavailableMovie(data)
-    setIndividualAvailableMovie(availableMovie[0])
+    setIndividualAvailableMovie(data[0])
     setIndex(0);
   }
 
   const nextHandleClick = () => {
     if (index == 0 && availableMovie.length > 1) {
-      setIndividualAvailableMovie(availableMovie[1])
+      setIndividualAvailableMovie(prev => availableMovie[1])
       setIndex(1);
     }
 
     else if (index == 1 && availableMovie.length > 2) {
-      setIndividualAvailableMovie(availableMovie[2])
+      setIndividualAvailableMovie(prev => availableMovie[2])
       setIndex(2)
     }
 
     else {
-      setIndividualAvailableMovie(availableMovie[0])
+      setIndividualAvailableMovie(prev => availableMovie[0])
       setIndex(0)
     }
   }

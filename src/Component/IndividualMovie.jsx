@@ -16,29 +16,28 @@ const IndividualMovie = () => {
   let count = 0;
   let ascii_value = 65;
   let seat_no = 1
-  let seat_l_array = [];
+  let seat_l_array = []
   const [loaderCheck, setloaderCheck] = useState(false)
 
   const [showTime, setshowTime] = useState("")
   const [showDate, setshowDate] = useState("")
 
-  const getallotPurchasedSeats = async (movie_name) => {
+  const getallotPurchasedSeats = async (movie_name, show_date, show_time) => {
     const response = await fetch(`${host}/api/seat/getallotedseat`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ movie_name })
+      body: JSON.stringify({ movie_name, show_date, show_time })
     })
 
     const data = await response.json();
     seat_l_array = data.data
-    console.log(seat_l_array)
   }
 
   useEffect(() => {
     const fetchData = async () => {
-      await getallotPurchasedSeats(individualAvailableMovie.title)
+      // await getallotPurchasedSeats(individualAvailableMovie.title)
       await getuserDetails()
       setTicketPrice(0)
       setSelectedSeatRecord([])
@@ -46,13 +45,8 @@ const IndividualMovie = () => {
 
     fetchData();
 
-    // setTimeout(() => {
-    //   setbook_seat_count(1);
-    // }, 2000);
-
     setTimeout(() => {
       setloaderCheck(true)
-      addingSeat();
     }, 3000);
 
     return () => {
@@ -74,6 +68,22 @@ const IndividualMovie = () => {
     setTicketDetails(newTicketDetails);
     setSelSeatRecordLocalStorage(selectedSeatRecord);
   }, [ticketPrice, showDate, showTime])
+
+  useEffect(() => {
+    if (showDate !== "" && showTime !== "" && loaderCheck !== false) {
+      setTicketPrice(0)
+      setloaderCheck(false)
+      seat_l_array = []
+      setSelectedSeatRecord(prev => [])
+      removeAllSeats();
+      getallotPurchasedSeats(individualAvailableMovie.title, showDate, showTime)
+
+      setTimeout(() => {
+        setloaderCheck(true);
+        addingSeat();
+      }, 3000)
+    }
+  }, [showDate, showTime])
 
 
   function handleSeatClick(e) {
@@ -164,33 +174,45 @@ const IndividualMovie = () => {
     }
   }
 
-  const handleDateSelect = (d) => {
-    const dateClass = document.getElementsByClassName('date')
-    for (let i = 0; i < 5; i++) {
-      dateClass[i].style.backgroundColor = "rgba(0, 0, 0, 0.315)"
-      dateClass[i].firstChild.style.color = "white"
-      dateClass[i].lastChild.style.color = "white"
-    }
+  const removeAllSeats = () => {
+    const seatContainer = document.getElementById('seat-container');
 
-    const id = document.getElementById(d)
-    let str = id.firstChild.textContent + " " + id.lastChild.textContent;
-    id.style.backgroundColor = "white"
-    id.firstChild.style.color = "black"
-    id.lastChild.style.color = "black"
-    setshowDate(str);
+    while (seatContainer.firstChild) {
+      seatContainer.removeChild(seatContainer.firstChild);
+    }
+  }
+
+  const handleDateSelect = (d) => {
+    if (loaderCheck !== false) {
+      const dateClass = document.getElementsByClassName('date')
+      for (let i = 0; i < 5; i++) {
+        dateClass[i].style.backgroundColor = "rgba(0, 0, 0, 0.315)"
+        dateClass[i].firstChild.style.color = "white"
+        dateClass[i].lastChild.style.color = "white"
+      }
+
+      const id = document.getElementById(d)
+      let str = id.firstChild.textContent + " " + id.lastChild.textContent;
+      id.style.backgroundColor = "white"
+      id.firstChild.style.color = "black"
+      id.lastChild.style.color = "black"
+      setshowDate(str);
+    }
   }
   const handleTimeSelect = (timeslot) => {
-    const timeClass = document.getElementsByClassName('timeslot')
-    for (let i = 0; i < 4; i++) {
-      timeClass[i].style.backgroundColor = "rgba(0, 0, 0, 0.315)"
-      timeClass[i].firstChild.style.color = "white"
-    }
+    if (loaderCheck !== false) {
+      const timeClass = document.getElementsByClassName('timeslot')
+      for (let i = 0; i < 4; i++) {
+        timeClass[i].style.backgroundColor = "rgba(0, 0, 0, 0.315)"
+        timeClass[i].firstChild.style.color = "white"
+      }
 
-    const timeId = document.getElementById(timeslot)
-    let str = timeId.firstChild.textContent
-    timeId.style.backgroundColor = "white"
-    timeId.firstChild.style.color = "black"
-    setshowTime(str);
+      const timeId = document.getElementById(timeslot)
+      let str = timeId.firstChild.textContent
+      timeId.style.backgroundColor = "white"
+      timeId.firstChild.style.color = "black"
+      setshowTime(str);
+    }
   }
 
   const beforehandleTicketBooking = () => {
@@ -214,6 +236,7 @@ const IndividualMovie = () => {
               id: 1,
               quantity: 1,
               price: parseFloat(ticketDetails.ticket_price),
+              address : {city: "mumbai", country: "india", line1: "unr", line2: "thane", postal_code: "421005", state: "maharashtra" },
               name: ticketDetails.movie_name
             },
           ],
@@ -226,53 +249,13 @@ const IndividualMovie = () => {
       console.table(error)
     }
 
-    // props.setstripeConfirm(data.success)
   }
 
 
   const handleTicketBooking = async () => {
-    
-    // const newTicketDetails = {
-    //   user_name: userDetails.user_name,
-    //   movie_name: individualAvailableMovie.title,
-    //   movie_image: individualAvailableMovie.image[0],
-    //   show_date: showDate, // Update dynamically based on user selection
-    //   show_time: showTime, // Update dynamically based on user selection
-    //   ticket_price: ticketPrice,
-    // };
-
-    // setTicketDetails(newTicketDetails);
-    // setSelSeatRecordLocalStorage(selectedSeatRecord);
-
     setTimeout(() => {
-        checkout()
+      checkout()
     }, 1000);
-
-    // if (data.success) {
-
-    //   console.log(
-    //     selectedSeatRecord
-    //   );
-
-    //   allotPurchasedSeats(newTicketDetails.movie_name, selectedSeatRecord, newTicketDetails.show_date, newTicketDetails.show_time)
-
-    //   generateTicket(
-    //     newTicketDetails.user_name,
-    //     newTicketDetails.movie_name,
-    //     newTicketDetails.movie_image,
-    //     selectedSeatRecord,
-    //     newTicketDetails.show_date,
-    //     newTicketDetails.show_time,
-    //     newTicketDetails.ticket_price
-    //   );
-
-    //   setNavIconBeeping(true);
-    //   navigate('/landing')
-    // }
-
-    // else {
-    //   console.log("Payment not done successfully")
-    // }
   }
 
 
@@ -287,7 +270,7 @@ const IndividualMovie = () => {
         <br />
         <div id='ticket-processing-container'>
           <div id='individual-sub-container'>
-            {loaderCheck == true ? (<h3>BOOK YOUR SEAT</h3>) : (<h3></h3>)}
+            {loaderCheck == true ? (showDate == "" || showTime == "" ? (<h3>SELECT DATE AND TIME</h3>) : (<h3>BOOK YOUR SEAT</h3>)) : (<h3></h3>)}
             <br />
             <div id='seat-selection-container'>
               <div id='seat-container' style={{ display: loaderCheck == true ? "grid" : "none" }}>

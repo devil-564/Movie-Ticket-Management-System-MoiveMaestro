@@ -2,9 +2,12 @@ const express = require("express")
 const { body, validationResult } = require("express-validator")
 const router = express.Router();
 const Seat = require("../models/seat")
+const removeDuplicate = require("../removeDuplicate");
 
 router.post("/allotpurchasedseat", [
-    body("movie_name", "Enter Movie Name")
+    body("movie_name", "Enter Movie Name"),
+    body("show_date", "Enter Date"),
+    body("show_time", "Enter Time"),
 ], async (req, res) => {
     let success = false;
     const errors = validationResult(req)
@@ -12,7 +15,9 @@ router.post("/allotpurchasedseat", [
     if (!errors.isEmpty()) res.status(400).json({ error: errors.array(), success: success })
 
     let verifyForMovie = await Seat.findOne({
-        movie_name: req.body.movie_name
+        movie_name : req.body.movie_name,
+        show_date : req.body.show_date,
+        show_time : req.body.show_time
     })
 
     console.log(req.body.seat_location)
@@ -21,11 +26,14 @@ router.post("/allotpurchasedseat", [
 
     if (verifyForMovie) {
         let combined_array = verifyForMovie.seat_location.concat(req.body.seat_location)
-
-        await Seat.updateOne({ movie_name: req.body.movie_name }, { $set: { seat_location: combined_array } },)
+        combined_array = removeDuplicate(combined_array);
+        
+        await Seat.updateOne({ movie_name: req.body.movie_name, show_date : req.body.show_date, show_time : req.body.show_time}, { $set: { seat_location: combined_array } },)
 
         verifyForMovie = await Seat.findOne({
-            movie_name: req.body.movie_name
+            movie_name: req.body.movie_name,
+            show_date : req.body.show_date,
+            show_time : req.body.show_time
         })
         
         success = true
@@ -38,7 +46,9 @@ router.post("/allotpurchasedseat", [
 
         const allotSeat = await Seat.create({
             movie_name: req.body.movie_name,
-            seat_location: req.body.seat_location
+            seat_location: req.body.seat_location,
+            show_date : req.body.show_date,
+            show_time : req.body.show_time
         })
 
         console.log(allotSeat);
@@ -51,7 +61,9 @@ router.post("/allotpurchasedseat", [
 })
 
 router.post('/getallotedseat', [
-    body("movie_name", "Enter Movie Name")
+    body("movie_name", "Enter Movie Name"),
+    body("show_date", "Enter Date"),
+    body("show_time", "Enter Time")
 ], async (req, res) => {
 
     let success = false;
@@ -59,7 +71,11 @@ router.post('/getallotedseat', [
 
     if (!errors.isEmpty()) res.status(400).json({ error: errors.array(), success: success })
 
-    const getAllocatedSeat = await Seat.findOne({movie_name : req.body.movie_name})
+    const getAllocatedSeat = await Seat.findOne({
+        movie_name : req.body.movie_name,
+        show_date : req.body.show_date,
+        show_time : req.body.show_time
+    })
 
     
     if(!getAllocatedSeat){
