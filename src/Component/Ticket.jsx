@@ -8,21 +8,11 @@ const Ticket = () => {
   const context = useContext(EContext);
   const navigate = useNavigate()
   const { userDetails, getuserDetails, getuserTickets, userTickets, setNavIconBeeping} = context;
-  // const [loaderCheck, setloaderCheck] = useState(false)
 
 
   useEffect(() => {
     getuserDetails();
     getuserTickets();
-
-
-    // setTimeout(() => {
-    //   setloaderCheck(true)
-    // }, 3000);
-
-    // return () => {
-
-    // }
   }, []);
 
   const handleClick = (e) => {
@@ -36,8 +26,7 @@ const Ticket = () => {
       check = prompt("Type yes if you want to delete the movie ticket")
     }
 
-    if(check == 'Yes'){
-
+    if(check.toUpperCase() === "YES"){
         const deleteTicket = async () => {
           const response = await fetch("http://localhost:3000/api/movie/deleteticket", {
             method : "POST",
@@ -50,6 +39,7 @@ const Ticket = () => {
           const data = await response.json();
 
           if(data.success){
+            console.log("Yes")
             setNavIconBeeping(true);
             navigate('/landing');
           }
@@ -59,6 +49,7 @@ const Ticket = () => {
         deleteTicket();
     }
 
+    navigate('/landing');
   }
 
   return (

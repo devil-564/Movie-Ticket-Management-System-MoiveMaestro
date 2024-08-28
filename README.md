@@ -1,34 +1,56 @@
-# React + Vite
+WELCOME TO THE DOCUMENTATION OF MOVIE MAESTRO - MOVIE TICKET MANAGEMENT WEB APPLICATION
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A. System Requirements
+To successfully run Movie Maestro, ensure your system meets the following requirements:
 
-Currently, two official plugins are available:
+Operating System: Windows, macOS, or Linux
+RAM: Minimum 4 GB (8 GB recommended)
+Node.js: Version 14.x or above
+MongoDB: Installed locally or accessible via a cloud service
+Internet Connection: Required for installing dependencies and accessing external services like Stripe
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+B. How to Setup the Website
+
+Extract the Project:
+First, extract the ZIP file of the project.
+
+Open in IDE:
+Use any IDE of your choice (e.g., Visual Studio Code) and open the extracted project in the IDE.
+
+Install Frontend Dependencies:
+Open the terminal in your IDE and navigate to the project root. Run the following command to install the frontend dependencies:
 
 
-<!--  -->
+`npm install`
+or
+`npm i`
 
-(<div id='ticket-main-container'>
-        <div id='user-container'>
-          <span><h1>{userDetails.user_name}</h1></span>
-          <span><h1>Tickets Area</h1></span>
-        </div>
+Install Backend Dependencies:
+Open a new terminal, navigate to the backend directory, and install the backend dependencies:
 
-        <div id='ticket-container'>
-          <div id='ticket'>
-            <span id='ticket-section1'>
-              <img src={userTickets[0].movie_image} alt="movie_image" />
-              <h1>{userTickets[0].movie_name}</h1>
-            </span>
 
-            <h1 id='ticket-section-seat-list'>Booked Seats : {userTickets[0].seat_location.toString()}</h1>
+`cd backend`
+`npm install`
+or
+`npm i`
 
-            <span id='ticket-section2'>
-              <h1>Date : {userTickets[0].show_date}</h1>
-              <h1>Time : {userTickets[0].show_time}</h1>
-            </span>
-          </div>
-        </div>
-      </div>)
+C. How to Run the Website
+
+Open the Project in IDE:
+Make sure the project is open in your IDE.
+
+Run the Application:
+In the terminal, run the following command to start the application:
+
+`npm run application`
+
+Access the Website:
+Open any browser and go to `http://localhost:5173` to access the website.
+
+IMPORTANT NOTE:
+Since we have integrated Stripe Payment Gateway and it is in test mode, use the following test card information for transactions:
+
+Card Information:
+Visa Number: 4000 0035 6000 0008
+Expiry Date: Any future date
+CVC: Any 3-digit number ex. 123

@@ -99,6 +99,7 @@ router.post('/deletemovie', [
         else {
             success = true
             await Seat.deleteOne({ title: req.body.title })
+            await Ticket.deleteMany({ title: req.body.title })
             return res.status(200).json({ success: success, results: "Movie has been deleted" })
         }
 
@@ -186,8 +187,14 @@ router.post('/deleteticket', [
 
             getSeats = await Seat.findOneAndUpdate({ movie_name: req.body.movie_name, seat_location: seatArray });
 
-            if (getSeats)
+            if(getSeats) {
                 res.status(200).json({ success: true })
+            }
+            else
+                res.status(200).json({success : false})
+        }
+        else{
+            res.status(200).json({success : false})
         }
     } catch (error) {
         res.status(500).json({ error: error, success: false })

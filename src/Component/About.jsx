@@ -26,10 +26,10 @@ const About = () => {
             </div>
             <div id='team_container'>
               <h1 style={{ marginBottom: "3vw" }}>OUR TEAM</h1>
+              <h2 style={{ marginBottom: "2vw" }}>Sandeep Kumar Mehta</h2>
               <h2 style={{ marginBottom: "2vw" }}>Mohd Irfan Lohar</h2>
+              <h2 style={{ marginBottom: "2vw" }}>Mohit Kumar Patel</h2>
               <h2 style={{ marginBottom: "2vw" }}>Hritik Shukla</h2>
-              <h2 style={{ marginBottom: "2vw" }}>Ishaan Khan</h2>
-              <h2 style={{ marginBottom: "2vw" }}>Meena Silavat</h2>
             </div>
           </div>
         </div>
